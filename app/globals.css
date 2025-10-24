@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/* Hide page until client applies dark/light theme */
+body {
+  opacity: 0;
+  transition: opacity 0.01s;
+}
+
+body.ready {
+  opacity: 1;
+}
+
 /* -------------------------
    Theme variables (CSS-first)
 -------------------------- */
