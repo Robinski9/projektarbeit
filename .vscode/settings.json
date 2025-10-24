@@ -1,0 +1,14 @@
+{
+    "workbench.settings.editor": "ui",
+    "eslint.codeActionsOnSave.rules": null,
+    "eslint.options": {
+
+    },
+    "eslint.rules.customizations": [
+
+    ],
+      /* Tailwind v4 CSS-first at-rule warnings */
+    "css.lint.unknownAtRules": "ignore",
+    "scss.lint.unknownAtRules": "ignore",
+    "less.lint.unknownAtRules": "ignore"
+}

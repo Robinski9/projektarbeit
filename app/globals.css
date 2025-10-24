@@ -1,26 +1,57 @@
 @import "tailwindcss";
 
-/* Optional: CSS variables for dynamic light/dark theme */
-:root {
+/* -------------------------
+   Theme variables (CSS-first)
+-------------------------- */
+@theme {
+  /* Colors */
   --color-background-light: #F8FAFC;
-  --color-foreground-light: #1E293B;
   --color-background-dark: #0F172A;
+  --color-foreground-light: #1E293B;
   --color-foreground-dark: #E2E8F0;
 
+  --color-brand-50:  #ECFDF5;
+  --color-brand-100: #D1FAE5;
+  --color-brand-200: #A7F3D0;
+  --color-brand-500: #22C55E; /* main green */
+  --color-brand-600: #16A34A;
+  --color-brand-700: #15803D;
+
+  --color-accent: #3B82F6;
+
+  /* Fonts */
   --font-sans: 'Inter', sans-serif;
   --font-heading: 'Poppins', sans-serif;
+
+  /* Border radius */
+  --radius-md: 0.5rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+
+  /* Shadows */
+  --shadow-default: 0 4px 12px rgba(0,0,0,0.1);
+  --shadow-strong: 0 8px 24px rgba(0,0,0,0.2);
 }
 
-@media (prefers-color-scheme: dark) {
+/* -------------------------
+   Dark mode via .dark class
+-------------------------- */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer theme {
   :root {
-    --background: var(--color-background-dark);
-    --foreground: var(--color-foreground-dark);
+    @variant dark {
+      --color-background-light: var(--color-background-dark);
+      --color-foreground-light: var(--color-foreground-dark);
+    }
   }
 }
 
-/* Minimal global styles, safe with Turbopack */
+/* -------------------------
+   Global styles
+-------------------------- */
 body {
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-sans);
   background-color: var(--color-background-light);
   color: var(--color-foreground-light);
   margin: 0;
@@ -28,6 +59,18 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Poppins', sans-serif;
+  font-family: var(--font-heading);
 }
+
+/* Example Tailwind usage with CSS variables */
+.button {
+  @apply px-4 py-2 rounded-xl shadow-default font-semibold transition;
+  background-color: var(--color-brand-500);
+  color: white;
+}
+
+.button:hover {
+  background-color: var(--color-brand-600);
+}
+
                   
