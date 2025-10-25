@@ -3,21 +3,23 @@
 import { useState, useEffect } from "react";
 
 export default function DarkModeToggle() {
-  const [mounted, setMounted] = useState(false); // track if we are in the browser
+  const [mounted, setMounted] = useState(false);
   const [dark, setDark] = useState(false);
+  const [moving, setMoving] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
     const isDark = saved === "dark" || (!saved && prefersDark);
 
     if (isDark) document.documentElement.classList.add("dark");
     else document.documentElement.classList.remove("dark");
 
-    // Only update state after mount to avoid the warning
     setTimeout(() => {
       setDark(isDark);
-      setMounted(true); // show body
+      setMounted(true);
       document.body.classList.add("ready");
     }, 0);
   }, []);
@@ -26,26 +28,45 @@ export default function DarkModeToggle() {
     const html = document.documentElement;
     html.classList.toggle("dark");
     const isDark = html.classList.contains("dark");
-    setDark(isDark);
     localStorage.setItem("theme", isDark ? "dark" : "light");
+
+    setMoving(true); // start stretching
+    setDark(isDark);
+
+    // shorten back after animation
+    setTimeout(() => setMoving(false), 200);
   };
 
-  if (!mounted) return null; // hide toggle until mounted
+  if (!mounted) return null;
 
   return (
     <button
       onClick={toggle}
-      className="relative w-14 h-7 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center px-1 cursor-pointer"
+      className="relative md:w-13.5 w-8 h-8 rounded-full bg-gray-300 dark:bg-gray-700 hover:bg-gray-400 dark:hover:bg-gray-600 transition-colors duration-200 flex items-center justify-center md:justify-start md:px-1 cursor-pointer"
     >
-      {/* sliding capsule */}
+      {/* sliding capsule - only visible on medium screens and up */}
       <span
-        className={`absolute w-6 h-6 bg-white dark:bg-black rounded-full transition-all duration-200 top-1/2 -translate-y-1/2 ${
-          dark ? "right-0" : "left-0"
+        className={`absolute h-6 rounded-full bg-white dark:bg-black top-1 transition-all duration-200 hidden md:block z-10 ${
+          moving ? "w-7" : "w-6"
         }`}
+        style={{
+          left: dark ? "calc(100% - 0.9rem)" : "0.9rem",
+          transform: "translateX(-50%)",
+        }}
       />
-      {/* emojis */}
-      <span className="absolute left-1 text-sm">🌙</span>
-      <span className="absolute right-1 text-sm">☀️</span>
+
+      {/* Both emojis always visible on medium screens */}
+      <span className="hidden md:block absolute left-1 text-sm pointer-events-none z-20">
+        🌙
+      </span>
+      <span className="hidden md:block absolute right-1 text-sm pointer-events-none z-20">
+        ☀️
+      </span>
+
+      {/* Single emoji for small screens */}
+      <span className="md:hidden text-sm pointer-events-none">
+        {dark ? "🌙" : "☀️"}
+      </span>
     </button>
   );
 }

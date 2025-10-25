@@ -10,6 +10,12 @@ body.ready {
   opacity: 1;
 }
 
+.capsule {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.capsule.moving {
+  width: 2rem; /* stretch */
+}
 /* -------------------------
    Theme variables (CSS-first)
 -------------------------- */
