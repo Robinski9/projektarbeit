@@ -1,14 +1,6 @@
 @import "tailwindcss";
 
-/* Hide page until client applies dark/light theme */
-body {
-  opacity: 0;
-  transition: opacity 0.01s;
-}
 
-body.ready {
-  opacity: 1;
-}
 
 .capsule {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
@@ -93,11 +85,9 @@ body.ready {
 
   /* ========== NAVBAR ========== */
   --color-navbar-bg-light: var(--color-brand-500);
-  --color-navbar-text-light: #FFFFFF; /* white text on green */
   --color-navbar-hover-light: var(--color-brand-200);
 
   --color-navbar-bg-dark: var(--color-brand-700); /* slightly lighter than brand-700 for contrast */
-  --color-navbar-text-dark: #F1F5F9; /* near white */
   --color-navbar-hover-dark: var(--color-brand-100);
 
   /* ========== STRUCTURAL ========== */
@@ -180,15 +170,6 @@ body.dark .button:hover {
 
 nav { transition: transform 180ms ease; }
 
-/* globals.css */
-/* Gradient outline base */
-.gradient-outline {
-  @apply relative rounded-md p-0.5 bg-linear-to-r from-purple-500 via-pink-500 to-orange-400;
-}
 
-/* Transparent inner layer */
-.gradient-outline-inner {
-  @apply rounded-md bg-white/10 dark:bg-black/20;
-}
 
 

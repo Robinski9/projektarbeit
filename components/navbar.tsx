@@ -41,16 +41,33 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <nav className="w-full bg-navbar-bg-light dark:bg-navbar-bg-dark text-navbar-text-light dark:text-navbar-text-dark shadow-default transition-colors duration-300">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-4">
+    <nav className="w-full relative z-10 text-text-primary-light dark:text-text-primary-dark shadow-default transition-colors duration-300">
+      {/* Frosted background layer */}
+      <div className="absolute inset-0 bg-green-500/20 backdrop-blur-sm rounded-b-xl shadow-md z-0"></div>
+
+      <div className="relative max-w-6xl mx-auto flex items-center justify-between px-6 py-4 z-10">
         {/* Brand */}
-        <h1 className="font-heading font-extrabold text-xl select-none">
-          Brand
-        </h1>
+        <div className="flex items-center gap-8">
+          <h1 className="font-heading font-extrabold text-xl select-none z-10">
+            Brand
+          </h1>
+
+          {/* Mobile Home Link */}
+          <div className="sm:hidden">
+            <Link
+              href="/"
+              className={`cursor-pointer font-bold transition-colors duration-200 hover:text-navbar-hover-light dark:hover:text-navbar-hover-dark font-heading ${
+                pathname === "/" ? "underline" : ""
+              }`}
+            >
+              Home
+            </Link>
+          </div>
+        </div>
 
         {/* Desktop Menu */}
-        <div className="hidden sm:flex items-center gap-6">
-          <ul className="flex items-center relative z-10">
+        <div className="hidden sm:flex items-center gap-6 z-10">
+          <ul className="flex items-center relative z-10 ">
             {navItems.map((item, index) => (
               <li
                 key={item.name}
@@ -58,28 +75,25 @@ export default function Navbar() {
                   itemRefs.current[index] = el!;
                 }}
                 onMouseEnter={() => {
-                  const linkEl = itemRefs.current[index].querySelector("a"); // get the Link inside
+                  const linkEl = itemRefs.current[index].querySelector("a");
                   if (!linkEl) return;
                   const { offsetLeft, offsetWidth } = linkEl;
-                  const PADDING = 16; // optional shrink
+                  const PADDING = 16;
                   setHighlightStyle({
                     left: offsetLeft + PADDING / 2,
                     width: offsetWidth - PADDING,
                   });
                 }}
                 onMouseLeave={() => {
-                  // return to active route
                   const activeIndex = navItems.findIndex(
                     (i) => i.href === pathname
                   );
                   const activeEl = itemRefs.current[activeIndex];
                   if (!activeEl) return;
-
-                  const linkEl = activeEl.querySelector("a"); // get the Link inside
+                  const linkEl = activeEl.querySelector("a");
                   if (!linkEl) return;
-
                   const { offsetLeft, offsetWidth } = linkEl;
-                  const PADDING = 16; // same shrink as hover
+                  const PADDING = 16;
                   setHighlightStyle({
                     left: offsetLeft + PADDING / 2,
                     width: offsetWidth - PADDING,
@@ -95,17 +109,16 @@ export default function Navbar() {
               </li>
             ))}
 
-            {/* Highlight rectangle */}
+            {/* Highlight rectangles */}
             <div
-              className="absolute top-0 h-full rounded-md transition-all duration-300 pointer-events-none opacity-25 z-0 bg-surface-light dark:bg-surface-dark"
+              className="absolute top-0 h-full rounded-md backdrop-blur-md transition-all duration-300 pointer-events-none opacity-10 z-0 bg-surface-dark dark:bg-surface-light"
               style={{
                 left: highlightStyle.left,
                 width: highlightStyle.width,
               }}
             />
-
             <div
-              className="absolute top-0 h-full rounded-md border-2 border-border-light dark:border-border-dark transition-all duration-300 pointer-events-none z-0"
+              className="absolute top-0 h-full rounded-md border-2 border-border-dark dark:border-border-light transition-all duration-300 pointer-events-none z-0"
               style={{
                 left: highlightStyleNow.left,
                 width: highlightStyleNow.width,
@@ -115,54 +128,44 @@ export default function Navbar() {
 
           <div className="ml-4"></div>
         </div>
+
         <div className="hidden sm:block">
           <DarkModeToggle />
         </div>
+
         {/* Hamburger Icon (mobile only) */}
         <button
-          className="sm:hidden flex flex-col justify-center items-center cursor-pointer gap-1 w-8 h-8"
+          className="sm:hidden flex flex-col justify-center items-center cursor-pointer gap-1 w-8 h-8 z-10"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
           <span
-            className={`block h-0.5 w-6 bg-navbar-text-light dark:bg-navbar-text-dark transition-transform duration-300 ${
-              menuOpen ? "rotate-45 translate-y-2" : ""
+            className={`block h-0.5 w-6 bg-text-primary-light dark:bg-text-primary-dark transition-transform duration-300 ${
+              menuOpen ? "rotate-45 translate-y-1.5" : ""
             }`}
           ></span>
           <span
-            className={`block h-0.5 w-6 bg-navbar-text-light dark:bg-navbar-text-dark transition-opacity duration-300 ${
+            className={`block h-0.5 w-6 bg-text-primary-light dark:bg-text-primary-dark transition-opacity duration-300 ${
               menuOpen ? "opacity-0" : "opacity-100"
             }`}
           ></span>
           <span
-            className={`block h-0.5 w-6 bg-navbar-text-light dark:bg-navbar-text-dark transition-transform duration-300 ${
-              menuOpen ? "-rotate-45 -translate-y-2" : ""
+            className={`block h-0.5 w-6 bg-text-primary-light dark:bg-text-primary-dark transition-transform duration-300 ${
+              menuOpen ? "-rotate-45 -translate-y-1.5" : ""
             }`}
           ></span>
         </button>
       </div>
-     
-      {/* Mobile Home button in the middle */}
-      <div className="sm:hidden absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
-        <Link
-          href="/"
-          className={`font-extrabold px-5 py-2 font-heading transition-colors duration-200 hover:text-navbar-hover-light dark:hover:text-navbar-hover-dark ${
-            pathname === "/" ? "underline" : ""
-          }`}
-        >
-          Home
-        </Link>
-      </div>
 
-      {/* Mobile Menu with slide-down animation */}
+      {/* Mobile Menu */}
       <div
         className={`sm:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out ${
           menuOpen ? "max-h-64" : "max-h-0"
         }`}
       >
-        <ul className="flex flex-col items-center gap-4 py-4 bg-navbar-bg-light dark:bg-navbar-bg-dark shadow-md">
+        <ul className="relative z-10 flex shadow-default rounded-b-x flex-col items-center gap-4 py-4 bg-green-500/20 backdrop-blur-none rounded-b-xl">
           {navItems
-            .filter((item) => item.name !== "Home") // exclude Home
+            .filter((item) => item.name !== "Home")
             .map((item) => {
               const isActive = item.href === pathname;
               return (
@@ -170,13 +173,16 @@ export default function Navbar() {
                   <Link
                     href={item.href}
                     className={`cursor-pointer font-bold transition-colors duration-200 hover:text-navbar-hover-light dark:hover:text-navbar-hover-dark font-heading
-                ${isActive ? "underline" : ""}`}
+            ${isActive ? "underline" : ""}`}
                   >
                     {item.name}
                   </Link>
                 </li>
               );
             })}
+          <li>
+            <DarkModeToggle />
+          </li>
         </ul>
       </div>
     </nav>
