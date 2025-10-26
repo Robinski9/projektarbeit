@@ -8,7 +8,7 @@ export default function HomePage() {
       {/* Hero / first full screen */}
       <section className="h-screen flex items-center justify-center ">
         <div className="text-center px-6">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Mockup — Scroll Test</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">Mockup — Steroide</h1>
           <p className="text-slate-600">Scroll nach unten, um das Navbar-Verhalten zu prüfen.</p>
         </div>
       </section>

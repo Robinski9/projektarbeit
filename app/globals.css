@@ -16,77 +16,179 @@ body.ready {
 .capsule.moving {
   width: 2rem; /* stretch */
 }
+
 /* -------------------------
-   Theme variables (CSS-first)
+   🌗 THEME (Tailwind 4.1 CSS-first)
 -------------------------- */
 @theme {
-  /* Colors */
+  /* ========== BASE COLORS ========== */
   --color-background-light: #F8FAFC;
   --color-background-dark: #0F172A;
+
   --color-foreground-light: #1E293B;
   --color-foreground-dark: #E2E8F0;
 
-  --color-brand-50:  #ECFDF5;
+  /* Brand (Green) */
+  --color-brand-50: #ECFDF5;
   --color-brand-100: #D1FAE5;
   --color-brand-200: #A7F3D0;
-  --color-brand-500: #22C55E; /* main green */
+  --color-brand-500: #22C55E;
   --color-brand-600: #16A34A;
   --color-brand-700: #15803D;
 
+  /* Accent (Blue) */
   --color-accent: #3B82F6;
+  --color-accent-hover: #2563EB;
 
-  /* Fonts */
-  --font-sans: 'Inter', sans-serif;
+  /* Surfaces & Borders */
+  --color-surface-light: #FFFFFF;
+  --color-surface-dark: #1E293B;
+  --color-border-light: #CBD5E1;
+  --color-border-dark: #334155;
+
+  /* ========== TEXT ========== */
+  --color-text-primary-light: #0F172A;
+  --color-text-secondary-light: #475569;
+  --color-text-muted-light: #64748B;
+
+  --color-text-primary-dark: #F1F5F9;
+  --color-text-secondary-dark: #CBD5E1;
+  --color-text-muted-dark: #94A3B8;
+
+    /* Fonts */
   --font-heading: 'Poppins', sans-serif;
+  --font-sans: 'Inter', sans-serif;
 
-  /* Border radius */
-  --radius-md: 0.5rem;
-  --radius-xl: 1rem;
-  --radius-2xl: 1.5rem;
+  /* ========== BUTTONS ========== */
+  --button-bg-light: var(--color-brand-500);
+  --button-bg-hover-light: var(--color-brand-600);
+  --button-text-light: #FFFFFF;
+
+  --button-bg-dark: var(--color-brand-600);
+  --button-bg-hover-dark: var(--color-brand-700);
+  --button-text-dark: #F8FAFC;
+
+  /* Secondary */
+  --button-secondary-bg-light: var(--color-surface-light);
+  --button-secondary-bg-hover-light: #F1F5F9;
+  --button-secondary-text-light: var(--color-foreground-light);
+
+  --button-secondary-bg-dark: var(--color-surface-dark);
+  --button-secondary-bg-hover-dark: #334155;
+  --button-secondary-text-dark: var(--color-foreground-dark);
+
+  /* ========== COMPONENTS ========== */
+  --slider-track-light: #E2E8F0;
+  --slider-thumb-light: var(--color-brand-500);
+  --slider-thumb-hover-light: var(--color-brand-600);
+
+  --slider-track-dark: #334155;
+  --slider-thumb-dark: var(--color-brand-600);
+  --slider-thumb-hover-dark: var(--color-brand-500);
+
+  --capsule-bg-light: var(--color-brand-100);
+  --capsule-hover-light: var(--color-brand-200);
+  --capsule-bg-dark: var(--color-brand-700);
+  --capsule-hover-dark: var(--color-brand-600);
+
+  /* ========== NAVBAR ========== */
+  --color-navbar-bg-light: var(--color-brand-500);
+  --color-navbar-text-light: #FFFFFF; /* white text on green */
+  --color-navbar-hover-light: var(--color-brand-200);
+
+  --color-navbar-bg-dark: var(--color-brand-700); /* slightly lighter than brand-700 for contrast */
+  --color-navbar-text-dark: #F1F5F9; /* near white */
+  --color-navbar-hover-dark: var(--color-brand-100);
+
+  /* ========== STRUCTURAL ========== */
+   /* Border radius presets */
+  --radius-sm: 0.25rem;   /* Slightly rounded, good for small buttons, tags */
+  --radius-md: 0.5rem;    /* Default medium rounding, cards, inputs */
+  --radius-lg: 0.75rem;   /* Large rounding, larger buttons, modals */
+  --radius-xl: 1rem;      /* Extra rounding, pill-shaped buttons */
+  --radius-full: 9999px;  /* Fully round, for circles, avatars, badges */
 
   /* Shadows */
-  --shadow-default: 0 4px 12px rgba(0,0,0,0.1);
-  --shadow-strong: 0 8px 24px rgba(0,0,0,0.2);
+  --shadow-default: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.12);
+
+  /* Fonts */
+  --font-sans: "Inter", sans-serif;
+  --font-heading: "Poppins", sans-serif;
 }
 
 /* -------------------------
-   Dark mode via .dark class
+   DARK MODE OVERRIDES
 -------------------------- */
 @custom-variant dark (&:where(.dark, .dark *));
 
-@layer theme {
-  :root {
-    @variant dark {
-      --color-background-light: var(--color-background-dark);
-      --color-foreground-light: var(--color-foreground-dark);
-    }
-  }
-}
-
-/* -------------------------
-   Global styles
--------------------------- */
 body {
-  font-family: var(--font-sans);
-  background-color: var(--color-background-light);
-  color: var(--color-foreground-light);
+  font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark {
+  background-color: #0F172A;
+  color: #E2E8F0;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-heading);
 }
 
-/* Example Tailwind usage with CSS variables */
+body, p, span, li {
+  font-family: var(--font-sans);
+}
+
+
+/* -------------------------
+   BUTTONS
+-------------------------- */
 .button {
   @apply px-4 py-2 rounded-xl shadow-default font-semibold transition;
-  background-color: var(--color-brand-500);
-  color: white;
+  background-color: #22C55E; /* brand-500 light */
+  color: #FFFFFF;
 }
 
 .button:hover {
-  background-color: var(--color-brand-600);
+  background-color: #16A34A; /* brand-600 light */
 }
 
-                  
+/* Dark mode buttons */
+body.dark .button {
+  background-color: #16A34A; /* brand-600 dark */
+  color: #F8FAFC;
+}
+
+body.dark .button:hover {
+  background-color: #15803D; /* brand-700 dark */
+}
+
+/* -------------------------
+   STRUCTURAL
+-------------------------- */
+.shadow-default {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.capsule {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+nav { transition: transform 180ms ease; }
+
+/* globals.css */
+/* Gradient outline base */
+.gradient-outline {
+  @apply relative rounded-md p-0.5 bg-linear-to-r from-purple-500 via-pink-500 to-orange-400;
+}
+
+/* Transparent inner layer */
+.gradient-outline-inner {
+  @apply rounded-md bg-white/10 dark:bg-black/20;
+}
+
+
