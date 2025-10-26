@@ -41,7 +41,7 @@ export default function Navbar() {
   }, [pathname]);
 
   return (
-    <nav className="w-full relative z-10 text-text-primary-light dark:text-text-primary-dark shadow-default transition-colors duration-300">
+    <nav className="w-full relative z-10 text-text-primary-light dark:text-text-primary-dark transition-colors duration-300">
       {/* Frosted background layer */}
       <div className="absolute inset-0 bg-green-500/20 backdrop-blur-sm rounded-b-xl shadow-md z-0"></div>
 
@@ -56,7 +56,7 @@ export default function Navbar() {
           <div className="sm:hidden">
             <Link
               href="/"
-              className={`cursor-pointer font-bold transition-colors duration-200 hover:text-navbar-hover-light dark:hover:text-navbar-hover-dark font-heading ${
+              className={`cursor-pointer font-bold transition-colors duration-200 hover:text-text-secondary-light dark:hover:text-text-secondary-dark font-heading ${
                 pathname === "/" ? "underline" : ""
               }`}
             >
@@ -129,8 +129,41 @@ export default function Navbar() {
           <div className="ml-4"></div>
         </div>
 
+        {/* Desktop Menu Right Side with Hamburger */}
         <div className="hidden sm:block">
-          <DarkModeToggle />
+          <button
+            className="flex flex-col justify-center items-center cursor-pointer gap-1 w-8 h-8 z-10"
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <span
+              className={`block h-0.5 w-6 bg-text-primary-light dark:bg-text-primary-dark transition-transform duration-300 ${
+                menuOpen ? "rotate-45 translate-y-1.5" : ""
+              }`}
+            ></span>
+            <span
+              className={`block h-0.5 w-6 bg-text-primary-light dark:bg-text-primary-dark transition-opacity duration-300 ${
+                menuOpen ? "opacity-0" : "opacity-100"
+              }`}
+            ></span>
+            <span
+              className={`block h-0.5 w-6 bg-text-primary-light dark:bg-text-primary-dark transition-transform duration-300 ${
+                menuOpen ? "-rotate-45 -translate-y-1.5" : ""
+              }`}
+            ></span>
+          </button>
+
+          {/* Desktop Dropdown Menu */}
+          <div
+            className={`absolute right-0 top-full overflow-hidden transition-all duration-300 ease-in-out ${
+              menuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
+            }`}
+          >
+            <div className="p-4 bg-green-500/20 backdrop-blur-sm rounded-b-xl shadow-md"
+            onClick={() => setMenuOpen(false)}>
+              <DarkModeToggle />
+            </div>
+          </div>
         </div>
 
         {/* Hamburger Icon (mobile only) */}
@@ -158,12 +191,14 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      <div
-        className={`sm:hidden overflow-hidden transition-[max-height] duration-300 ease-in-out ${
-          menuOpen ? "max-h-64" : "max-h-0"
-        }`}
-      >
-        <ul className="relative z-10 flex shadow-default rounded-b-x flex-col items-center gap-4 py-4 bg-green-500/20 backdrop-blur-none rounded-b-xl">
+      <div className="sm:hidden relative shadow-default rounded-b-xl">
+  <div
+    className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+      menuOpen ? "max-h-64" : "max-h-0"
+    }`}
+  >
+    <ul className="relative z-10 flex flex-col items-center gap-4 py-4 bg-green-500/20 backdrop-blur-none rounded-b-xl"
+    onClick={() => setMenuOpen(false)}>
           {navItems
             .filter((item) => item.name !== "Home")
             .map((item) => {
@@ -172,7 +207,7 @@ export default function Navbar() {
                 <li key={item.name} onClick={() => setMenuOpen(false)}>
                   <Link
                     href={item.href}
-                    className={`cursor-pointer font-bold transition-colors duration-200 hover:text-navbar-hover-light dark:hover:text-navbar-hover-dark font-heading
+                    className={`cursor-pointer font-bold transition-colors duration-200 hover:text-secondary-light dark:hover:text-secondary-dark font-heading
             ${isActive ? "underline" : ""}`}
                   >
                     {item.name}
@@ -184,6 +219,7 @@ export default function Navbar() {
             <DarkModeToggle />
           </li>
         </ul>
+      </div>
       </div>
     </nav>
   );
