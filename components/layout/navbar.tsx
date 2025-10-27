@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import DarkModeToggle from "./DarkModeToggle";
+import DarkModeToggle from "@/components/DarkModeToggle";
 import Link from "next/link";
 import { navItems } from "./navItems";
 
@@ -159,8 +159,10 @@ export default function Navbar() {
               menuOpen ? "max-h-64 opacity-100" : "max-h-0 opacity-0"
             }`}
           >
-            <div className="p-4 bg-green-500/20 backdrop-blur-sm rounded-b-xl shadow-md"
-            onClick={() => setMenuOpen(false)}>
+            <div
+              className="p-4 bg-green-500/20 backdrop-blur-sm rounded-b-xl shadow-md"
+              onClick={() => setMenuOpen(false)}
+            >
               <DarkModeToggle />
             </div>
           </div>
@@ -192,34 +194,36 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       <div className="sm:hidden relative shadow-default rounded-b-xl">
-  <div
-    className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
-      menuOpen ? "max-h-64" : "max-h-0"
-    }`}
-  >
-    <ul className="relative z-10 flex flex-col items-center gap-4 py-4 bg-green-500/20 backdrop-blur-none rounded-b-xl"
-    onClick={() => setMenuOpen(false)}>
-          {navItems
-            .filter((item) => item.name !== "Home")
-            .map((item) => {
-              const isActive = item.href === pathname;
-              return (
-                <li key={item.name} onClick={() => setMenuOpen(false)}>
-                  <Link
-                    href={item.href}
-                    className={`cursor-pointer font-bold transition-colors duration-200 hover:text-secondary-light dark:hover:text-secondary-dark font-heading
+        <div
+          className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
+            menuOpen ? "max-h-64" : "max-h-0"
+          }`}
+        >
+          <ul
+            className="relative z-10 flex flex-col items-center gap-4 py-4 bg-green-500/20 backdrop-blur-none rounded-b-xl"
+            onClick={() => setMenuOpen(false)}
+          >
+            {navItems
+              .filter((item) => item.name !== "Home")
+              .map((item) => {
+                const isActive = item.href === pathname;
+                return (
+                  <li key={item.name} onClick={() => setMenuOpen(false)}>
+                    <Link
+                      href={item.href}
+                      className={`cursor-pointer font-bold transition-colors duration-200 hover:text-secondary-light dark:hover:text-secondary-dark font-heading
             ${isActive ? "underline" : ""}`}
-                  >
-                    {item.name}
-                  </Link>
-                </li>
-              );
-            })}
-          <li>
-            <DarkModeToggle />
-          </li>
-        </ul>
-      </div>
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                );
+              })}
+            <li>
+              <DarkModeToggle />
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );

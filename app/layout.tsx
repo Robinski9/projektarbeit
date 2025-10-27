@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
-import Navbar from "@/components/navbar";
+import Navbar from "@/components/layout/navbar";
 import ScrollWrapper from "@/components/ScrollWrapper";
+import Background from "@/components/layout/Background";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -16,10 +17,15 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-background-light dark:bg-background-dark relative -z-999">
-        <ScrollWrapper>
-          <Navbar />
-        </ScrollWrapper>
-        <main>{children}</main>
+        <div className="fixed inset-0 -z-10">
+          <Background />
+        </div>
+        <main>
+          <ScrollWrapper>
+            <Navbar />
+          </ScrollWrapper>
+          {children}
+        </main>
       </body>
     </html>
   );

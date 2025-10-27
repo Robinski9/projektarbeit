@@ -28,6 +28,11 @@
   --color-brand-600: #16A34A;
   --color-brand-700: #15803D;
 
+  --color-textbox-light: #f0f4fa;
+  --color-textbox-dark: #020303;
+  --color-textboxborder-dark: #525252;
+  --color-textboxborder-light: #6e6e6e;
+
   /* Accent (Blue) */
   --color-accent: #3B82F6;
   --color-accent-hover: #2563EB;
@@ -40,11 +45,11 @@
 
   /* ========== TEXT ========== */
   --color-text-primary-light: #0F172A;
-  --color-text-secondary-light: #475569;
+  --color-text-light: #0e0e0f;
   --color-text-muted-light: #64748B;
 
   --color-text-primary-dark: #F1F5F9;
-  --color-text-secondary-dark: #CBD5E1;
+  --color-text-dark: #ebeff5;
   --color-text-muted-dark: #94A3B8;
 
     /* Fonts */
@@ -170,6 +175,9 @@ body.dark .button:hover {
 
 nav { transition: transform 180ms ease; }
 
+.text-fluid {
+  font-size: clamp(1rem, 2.5vw, 2rem);
+}
 
 
 

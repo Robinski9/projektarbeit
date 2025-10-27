@@ -1,37 +1,56 @@
-// app/page.tsx
-export default function HomePage() {
-  const lorem =
-    "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae, repudiandae! ".repeat(8);
+"use client";
 
+import React from "react";
+import TextBox from "@/components/TextBox";
+
+export default function ExamplePage() {
   return (
-    <main className="max-w-5xl mx-auto relative z-0">
-      {/* Hero / first full screen */}
-      <section className="h-screen flex items-center justify-center ">
-        <div className="text-center px-6">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">Mockup — FFMI Rechner</h1>
-          <p className="text-slate-600">Scroll nach unten, um das Navbar-Verhalten zu prüfen.</p>
-        </div>
-      </section>
+    <div>
+      <h1>TextBox Beispielseite</h1>
 
-      {/* mehrere große Content-Sections */}
-      {Array.from({ length: 8 }).map((_, i) => (
-        <section
-          key={i}
-          className={`min-h-[80vh] flex items-center ${
-            i % 2 === 0 ? "bg-lime-600" : "bg-lime-500"
-          }`}
-        >
-          <div className="p-8 md:p-16">
-            <h2 className="text-2xl font-semibold mb-4">Section {i + 1}</h2>
-            <p className="text-slate-700 leading-relaxed">{lorem}</p>
-          </div>
-        </section>
-      ))}
+      <TextBox>
+        <h2>Überschrift</h2>
+        <p>
+          Dies ist ein normaler Absatz innerhalb der TextBox. Du kannst{" "}
+          <span>einige Wörter kursiv</span> schreiben oder{" "}
+          <span>fett hervorheben</span>.
+        </p>
+      </TextBox>
 
-      {/* Footer damit Seite nicht abrupt endet */}
-      <footer className="h-40 flex items-center justify-center bg-white">
-        <p className="text-slate-500">Footer / Ende der Demo</p>
-      </footer>
-    </main>
+      <TextBox>
+        <p>
+          Hier ist noch ein längerer Text, der über mehrere Zeilen geht, damit
+          man den Effekt der dynamischen Höhe sehen kann. Lorem ipsum dolor sit
+          amet, consectetur adipiscing elit. Duis dapibus rutrum facilisis.
+          Curabitur blandit tempus porttitor. Integer posuere erat a ante
+          venenatis dapibus posuere velit aliquet. Donec ullamcorper nulla non
+          metus auctor fringilla. Lorem ipsum dolor sit amet, consectetur
+          adipiscing elit.
+        </p>
+      </TextBox>
+
+      <TextBox>
+        <h3>Noch eine Überschrift</h3>
+        <p>
+          Mischung aus verschiedenen Stilen: kursiv, fett, normale Schrift. Du
+          kannst beliebige HTML-Elemente verwenden, z. B. Links hier.
+        </p>
+      </TextBox>
+
+      <TextBox>
+        <p>
+          Sehr langer Text zum Testen des Scrollens der Seite. Lorem ipsum
+          dolor sit amet, consectetur adipiscing elit. Pellentesque imperdiet,
+          nisi ac volutpat mollis, ligula ex venenatis nulla, nec fermentum
+          justo sapien nec justo. Donec bibendum, ipsum a fermentum laoreet,
+          sapien justo bibendum sapien, non facilisis lorem nulla ut mauris.
+          Aliquam erat volutpat. Sed vel nunc eget lorem ultricies dictum. Nam
+          eget nisl non purus tincidunt elementum. Lorem ipsum dolor sit amet,
+          consectetur adipiscing elit. Fusce sit amet urna ut purus elementum
+          tincidunt. Vivamus laoreet, urna eget lacinia hendrerit, sapien nulla
+          dignissim ligula, vitae egestas dolor sapien et ligula.
+        </p>
+      </TextBox>
+    </div>
   );
 }
